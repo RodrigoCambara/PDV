@@ -467,6 +467,11 @@ public class frmVendas extends javax.swing.JFrame {
     private void btnPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagamentoActionPerformed
 
         // Botão pagamento
+        
+        frmPagamento telaPag = new frmPagamento();
+        telaPag.txtTotalPag.setText(String.valueOf(total));
+        telaPag.setVisible(true);
+        this.dispose();
 
     }//GEN-LAST:event_btnPagamentoActionPerformed
 
