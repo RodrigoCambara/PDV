@@ -4,15 +4,17 @@
  */
 package View;
 
+import Model.vendasClass;
+import Model.clienteClass;
+
 /**
  *
  * @author Rodrigo
  */
 public class frmPagamento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmPagamento
-     */
+    clienteClass cliente = new clienteClass();
+    
     public frmPagamento() {
         initComponents();
         
@@ -257,6 +259,10 @@ public class frmPagamento extends javax.swing.JFrame {
         troco = totalpago - totalvenda;
         
         txtTroco.setText(String.valueOf(troco));
+        
+        vendasClass objv = new vendasClass();
+        
+        objv.setCliente(cliente);
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 
     /**
