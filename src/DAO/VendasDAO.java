@@ -45,7 +45,7 @@ public class VendasDAO {
             stmt.execute();
             stmt.close();
 
-            JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
+
 
         } catch (SQLException erro) {
 

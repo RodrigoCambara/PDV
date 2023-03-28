@@ -472,6 +472,7 @@ public class frmVendas extends javax.swing.JFrame {
         telaPag.txtTotalPag.setText(String.valueOf(total));
         
         telaPag.cliente = obj;
+        telaPag.carrinho = carrinho;
         
         telaPag.setVisible(true);
         this.dispose();
