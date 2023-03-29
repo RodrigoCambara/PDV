@@ -5,6 +5,7 @@
 package View;
 
 import DAO.ItemVendaDAO;
+import DAO.ProdutosDAO;
 import DAO.VendasDAO;
 import Model.vendasClass;
 import Model.clienteClass;
@@ -281,6 +282,7 @@ public class frmPagamento extends javax.swing.JFrame {
         pcartao = Double.parseDouble(txtCartao.getText());
         pcheque = Double.parseDouble(txtCheque.getText());
         pdinheiro = Double.parseDouble(txtDinheiro.getText());
+        
         totalvenda = Double.parseDouble(txtTotalPag.getText());
 
         // Cálculo de pagamento total e troco
@@ -299,6 +301,7 @@ public class frmPagamento extends javax.swing.JFrame {
         Date agora = new Date();
         SimpleDateFormat dataEUA = new SimpleDateFormat("yyyy/MM/dd");
         String datamysql = dataEUA.format(agora);
+        
         objv.setDataVenda(datamysql);
 
         // Total da venda e observação
@@ -310,32 +313,44 @@ public class frmPagamento extends javax.swing.JFrame {
         dao_v.cadastrarVenda(objv);
 
         try {
-
-            // Retorna o id da última venda realizada
+            //Retorna o id da ultima venda realizada
             objv.setId(dao_v.retornaUltimaVenda());
-
-            //System.out.println("Id da ultima venda = " + objv.getId());
+            
         } catch (SQLException ex) {
             Logger.getLogger(frmPagamento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Cadastrar os produtos na tabela itemVenda
+        //System.out.println("Id da ultima venda: " + objv.getId());
+  
+        // Cadastrando os produtos na tabela itemvendas
         for (int i = 0; i < carrinho.getRowCount(); i++) {
 
+            int qtd_estoque , qtd_comprada, qtd_atualizada;
             produtosClass objp = new produtosClass();
+            ProdutosDAO dao_produto = new ProdutosDAO();
+          
             itensVendaClass item = new itensVendaClass();
+            item.setVenda(objv);
 
             objp.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
             item.setProduto(objp);
             item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
             item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
-
+                        
+            //Baixa no estoque
+//            qtd_estoque = dao_produto.retornaEstoqueAtual(objp.getId());
+//            qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 2).toString());
+//            qtd_atualizada = qtd_estoque - qtd_comprada;
+//            
+//            dao_produto.baixaEstoque(objp.getId(), qtd_atualizada);         
+//
             ItemVendaDAO daoitem = new ItemVendaDAO();
             daoitem.cadastrarItem(item);
 
-        }
-
-        JOptionPane.showMessageDialog(null, "Venda efetuada com sucesso!");
+         }
+       /***********************************************************************/
+         
+        JOptionPane.showMessageDialog(null, "Venda Registrada com Sucesso!");
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 
     /**
